@@ -16,7 +16,7 @@ import warnings
 from scipy.spatial.distance import cdist
 import itertools
 from typing import Any, List, Dict, Optional, Union, Tuple
-from vistdf.images import ImagesFromAPI
+from images import ImagesFromAPI
 
 PARCEL_URL = "https://data.cityofberkeley.info/api/geospatial/bhxd-e6up?method=export&format=GeoJSON"
 
@@ -294,7 +294,7 @@ def load_gsv_img_from_coords(
     os.makedirs(save_dir, exist_ok=True)
 
     def get_single_gsv(idx):
-        pano_id, heading = idx.split("_")
+        pano_id, heading = idx.split(",")
 
         params = {
             'size': size,
@@ -310,7 +310,7 @@ def load_gsv_img_from_coords(
         image = Image.open(BytesIO(response.content)).convert('RGB')
         return np.asarray(image)[:, :, ::-1]
 
-    ids = (df.pano_id.map(str) + "_" + df.heading).to_list()
+    ids = (df.pano_id.map(str) + "," + df.perp_heading.map(str)).to_list()
     images = ImagesFromAPI(ids, get_single_gsv, save_dir)
 
     tqdm.pandas()
