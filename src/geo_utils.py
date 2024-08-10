@@ -134,7 +134,7 @@ def generate_network_pts(bbox: Polygon, api_key: str, samp_dist: float = 0.00015
     pts['meta_pt_str'] = pts['meta_pt'].astype(str)
     filtered_pts = pts.groupby(['meta_pt_str', 'pano_id']).apply(filter_headings).reset_index(drop=True).drop(['meta_pt_str'], axis=1)
     filtered_pts['perp_heading'] = filtered_pts.apply(lambda row: perpendicular_headings(row['geometry'], row['heading']), axis=1)
-    return filtered_pts.explode('perp_heading')
+    return filtered_pts.explode('perp_heading').reset_index(drop=True)
 
 def get_area_bbox(area: str, api_key: str) -> Polygon:
     """
