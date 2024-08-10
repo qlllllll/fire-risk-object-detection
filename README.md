@@ -31,9 +31,6 @@ bbox = get_area_bbox(area)
 
 # Generate sample points along the road network within the bounding box
 sample_points = generate_network_pts(bbox, samp_dist=0.00015)
-
-# Download Google Street View images using the generated sample points
-load_gsv_images(sample_points, save_dir='gsv_images')
 ```
 
 #### Object Detection on Series of Images
@@ -49,8 +46,9 @@ For object detection on a series of images loaded from a folder, the following f
 ```python
 from object_detection_utils import load_images, depth_estimate, convert_depth_to_coords, object_grounded_segmentation, generate_3d_bounding_boxes, reformat_detections
 
-# Load your images into a pd.Series
-images = load_images(folder_path='./gsv_images')[:10]
+# Load the first 10 images from the coordinates into a pd.Series
+images = load_gsv_img_from_coords(sample_points, api_key=GOOGLE_MAPS_API_KEY, save_dir='gsv_images')['image'][:10]
+images.name = 'gsv'
 
 # Estimate depth maps for the images
 depth_maps = depth_estimate(images)
