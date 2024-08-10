@@ -22,7 +22,7 @@ def annotate(image: Union[Image.Image, np.ndarray], detection_results: List[Dete
     """
     # Convert PIL Image to OpenCV format
     image_cv2 = np.array(image) if isinstance(image, Image.Image) else image
-    image_cv2 = cv2.cvtColor(image_cv2, cv2.COLOR_RGB2BGR)
+    #image_cv2 = cv2.cvtColor(image_cv2, cv2.COLOR_RGB2BGR)
 
     # Iterate over detections and add bounding boxes and masks
     for detection in detection_results:
@@ -47,7 +47,7 @@ def annotate(image: Union[Image.Image, np.ndarray], detection_results: List[Dete
 
     return cv2.cvtColor(image_cv2, cv2.COLOR_BGR2RGB)
 
-def annotate_mask_dist(image, row, label1, label2, save_name=None):
+def annotate_mask_dist(image: Union[Image.Image, np.ndarray], row: pd.Series, label1: str, label2: str, save_name: Optional[str] = None):
     """
     Annotate image with masks and distance information for specified labels.
 
@@ -64,7 +64,7 @@ def annotate_mask_dist(image, row, label1, label2, save_name=None):
     plt.figure(figsize=(10, 6))
     ax = plt.gca()
     image_cv2 = np.array(image) if isinstance(image, Image.Image) else image
-    image_cv2 = cv2.cvtColor(image_cv2, cv2.COLOR_RGB2BGR)
+    #image_cv2 = cv2.cvtColor(image_cv2, cv2.COLOR_RGB2BGR)
 
     padding = 15
     image_cv2 = cv2.copyMakeBorder(image_cv2, padding, padding, padding, padding, cv2.BORDER_CONSTANT, value=[255, 255, 255])

@@ -326,9 +326,8 @@ def grounded_segmentation(
     if isinstance(image, str):
         image = load_image(image)
 
-    with suppress_output():
-        detections = detect(image, labels, threshold, detector_id)
-        detections = segment(image, detections, polygon_refinement, segmenter_id)
+    detections = detect(image, labels, threshold, detector_id)
+    detections = segment(image, detections, polygon_refinement, segmenter_id)
 
     return detections
 
@@ -346,7 +345,7 @@ def object_grounded_segmentation(image_series: pd.Series, text_prompt: List[str]
     detector_id = "IDEA-Research/grounding-dino-tiny"
     segmenter_id = "facebook/sam-vit-base"
     
-    detections = image_series.apply(lambda img: grounded_segmentation(image=img.image, labels=text_prompt, threshold=0.3, polygon_refinement=True, detector_id=detector_id, segmenter_id=segmenter_id))
+    detections = image_series.apply(lambda img: grounded_segmentation(image=Image.fromarray(img.image), labels=text_prompt, threshold=0.3, polygon_refinement=True, detector_id=detector_id, segmenter_id=segmenter_id))
 
     return detections 
 
