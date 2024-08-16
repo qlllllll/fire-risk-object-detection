@@ -3,7 +3,7 @@
 This Python module performs object detection on Google Street View photos fetched from specified geolocation boundaries. It allows downloading Google Street View images at evenly spaced points along the road network within the boundary. The module uses Grounding-SAM for detecting and segmenting objects based on text prompts from the images. Additionally, it estimates distances from image metadata geolocation using Zoe-Depth and includes custom functions to analyze the geospatial relationships between objects.
 
 - [View the Slides](https://docs.google.com/presentation/d/1x6mj692BMaXJE4nDjVUDzIA_VW4Mc2wfDDEbevguVxM/edit?usp=sharing)
-[![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/qlllllll/fire-risk-object-detection/blob/main/src/colab-demo.ipynb)
+- [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/qlllllll/fire-risk-object-detection/blob/main/src/colab-demo.ipynb)
 ### Install
 
 Install from git with:
