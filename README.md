@@ -85,21 +85,25 @@ distances = dist(re_detections[['label','image_index', 'coords']], 'vegetation',
 dist_house_to_veg_min = group_distances(distances, re_detections, 'vegetation', 'house', fn=min)
 ```
 
-To check if the nearest objects exist within a specified distance, use the `nearest_object_existence` function. This function can also visualize the results if needed.
+To check if the nearest objects exist within a specified distance, use the `nearest_object_existence` function. This function can also visualize the results if needed. The `annotate_mask_object` function can show the image with the result annotated. 
 
 ```python
-from object_detection_utils import nearest_object_existence
-
 # Check if fire hydrants exist within 0.001 distance from sample hydrants map
 sample_hydrants = ...
 nearest_exist = nearest_object_existence(sample_hydrants, re_detections[re_detections['label']=='fire hydrant'], meta=sample_points, max_dist=0.001, visualize=True)
+annotate_mask_object(nearest_exist.iloc[0], 'fire hydrant')
+```
+
+To find the nearest image to a set of geographic points, use the nearest_image_existence function. This function performs a spatial join to find the closest images that meet the specified maximum distance, and can visualize the results if needed.
+```python
+#Find the nearest image to the sample hydrants map
+nearest_image = nearest_image_existence(sample, images, max_dist=0.0001)
 ```
 
 To estimate the geographic locations of objects from bounding boxes, use the `estimate_object_locations` function. These functions can also support visualizing the estimated locations.
 
-```python
-from object_detection_utils import estimate_object_locations
 
+```python
 # Estimate geographic locations for the detected objects
 geoloc_results = estimate_object_locations(re_detections[['image_index','coords', 'label']], meta=sample_points, visualize=True)
 ```
